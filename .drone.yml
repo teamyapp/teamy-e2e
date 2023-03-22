@@ -18,7 +18,7 @@ steps:
   - name: run e2e tests
     image: mcr.microsoft.com/playwright:v1.31.0-focal
     environment:
-      TEAMY_WEB_BASE_URL: testing.teamyapp.com
+      TEAMY_WEB_BASE_URL: https://testing.teamyapp.com
       TEST_ACCOUNTS:
         from_secret: TEST_ACCOUNTS
     commands:
@@ -91,7 +91,7 @@ steps:
   - name: run e2e tests
     image: mcr.microsoft.com/playwright:v1.31.0-focal
     environment:
-      TEAMY_WEB_BASE_URL: staging.teamyapp.com
+      TEAMY_WEB_BASE_URL: https://staging.teamyapp.com
       TEST_ACCOUNTS:
         from_secret: TEST_ACCOUNTS
     commands:
