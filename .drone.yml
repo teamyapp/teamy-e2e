@@ -18,11 +18,7 @@ steps:
   - name: run e2e tests
     image: mcr.microsoft.com/playwright:v1.31.0-focal
     environment:
-<<<<<<< HEAD
       TEAMY_WEB_BASE_URL: https://testing.teamyapp.com
-=======
-      TEAMY_WEB_BASE_URL: testing.teamyapp.com
->>>>>>> f6efb37 (Add config for testing branch)
       TEST_ACCOUNTS:
         from_secret: TEST_ACCOUNTS
     commands:
@@ -95,11 +91,7 @@ steps:
   - name: run e2e tests
     image: mcr.microsoft.com/playwright:v1.31.0-focal
     environment:
-<<<<<<< HEAD
       TEAMY_WEB_BASE_URL: https://staging.teamyapp.com
-=======
-      TEAMY_WEB_BASE_URL: staging.teamyapp.com
->>>>>>> f6efb37 (Add config for testing branch)
       TEST_ACCOUNTS:
         from_secret: TEST_ACCOUNTS
     commands:
@@ -153,5 +145,5 @@ trigger:
   event:
     - cron
   cron:
-    # Run every 5 minutes
-    spec: "*/5 * * * *"
+    include:
+      - staging-e2e-tests
