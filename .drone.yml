@@ -1,0 +1,74 @@
+kind: pipeline
+type: kubernetes
+name: e2e
+
+steps:
+  - name: retrieve cache
+    image: ghcr.io/teamyapp/drone-cache:0.1.9
+    volumes:
+      - name: cache
+        path: /var/lib/cache
+    settings:
+      mode: retrieve
+      version_file_path: yarn.lock
+      cacheable_relative_paths:
+        - node_modules
+      storage_type: volume
+      volume_cache_root_dir: /var/lib/cache
+  - name: run e2e tests
+    image: mcr.microsoft.com/playwright:v1.31.0-focal
+    environment:
+      TEAMY_WEB_BASE_URL:
+        from_secret: TEAMY_WEB_BASE_URL
+      TEST_ACCOUNTS:
+        from_secret: TEST_ACCOUNTS
+    commands:
+      - yarn install --frozen-lockfile
+      - yarn test
+  - name: upload test report
+    image: plugins/s3
+    settings:
+      endpoint: sfo3.digitaloceanspaces.com
+      bucket: devtool
+      access_key:
+        from_secret: DO_SPACES_ACCESS_KEY
+      secret_key:
+        from_secret: DO_SPACES_SECRET_KEY
+      target: /test-artifacts/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}/${DRONE_BUILD_NUMBER}
+      source: playwright-report/**/*
+    when:
+      status:
+        - success
+        - failure
+  - name: persist cache
+    image: ghcr.io/teamyapp/drone-cache:0.1.9
+    volumes:
+      - name: cache
+        path: /var/lib/cache
+    settings:
+      mode: persist
+      version_file_path: yarn.lock
+      cacheable_relative_paths:
+        - node_modules
+      storage_type: volume
+      volume_cache_root_dir: /var/lib/cache
+  - name: slack
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: SLACK_WEBHOOK
+      channel: code
+    when:
+      status:
+        - success
+        - failure
+volumes:
+  - name: cache
+    host:
+      path: /var/lib/cache
+trigger:
+  branch:
+    - master
+    - main
+  event:
+    - push

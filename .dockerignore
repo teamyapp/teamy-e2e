@@ -1,0 +1,10 @@
+README.md
+.drone.yml
+.gitignore
+.idea
+playwright-report
+node_modules
+docs
+src
+k8s
+.env
