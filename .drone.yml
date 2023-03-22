@@ -70,5 +70,6 @@ trigger:
   branch:
     - master
     - main
-  event:
-    - push
+  cron:
+    # Run every 5 minutes
+    spec: "*/5 * * * *"
