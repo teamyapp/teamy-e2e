@@ -16,7 +16,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 export default defineConfig({
   testDir: './tests',
   /* Maximum time one test can run for. */
-  timeout: 5 * 60 * 1000 /* 3 minutes */,
+  timeout: 3 * 60 * 1000 /* 3 minutes */,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
