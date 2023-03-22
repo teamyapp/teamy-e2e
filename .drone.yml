@@ -145,5 +145,5 @@ trigger:
   event:
     - cron
   cron:
-    # Run every 5 minutes
-    spec: "*/5 * * * *"
+    include:
+      - staging-e2e-tests
