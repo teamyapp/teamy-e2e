@@ -145,5 +145,4 @@ trigger:
   event:
     - cron
   cron:
-    include:
-      - staging-e2e-tests
+    - staging-e2e-tests
