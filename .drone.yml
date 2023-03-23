@@ -73,7 +73,7 @@ trigger:
 ---
 kind: pipeline
 type: kubernetes
-name: staging-e2e-tests
+name: tmp-e2e-tests
 
 steps:
   - name: retrieve cache
