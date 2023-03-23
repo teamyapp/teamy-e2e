@@ -73,7 +73,7 @@ trigger:
 ---
 kind: pipeline
 type: kubernetes
-name: staging
+name: staging-e2e-tests
 
 steps:
   - name: retrieve cache
@@ -139,10 +139,7 @@ volumes:
     host:
       path: /var/lib/cache
 trigger:
-  branch:
-    - master
-    - main
   event:
     - cron
   cron:
-    - staging-e2e-tests
+    - tmp-e2e-tests
