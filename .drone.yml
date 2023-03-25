@@ -142,4 +142,4 @@ trigger:
   event:
     - cron
   cron:
-    - tmp-e2e-tests
+    - staging-e2e-tests
