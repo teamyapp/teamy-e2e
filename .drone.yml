@@ -132,7 +132,6 @@ steps:
       channel: code
     when:
       status:
-        - success
         - failure
 volumes:
   - name: cache
