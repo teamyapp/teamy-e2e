@@ -1,5 +1,5 @@
 kind: pipeline
-type: kubernetes
+type: docker
 name: testing
 
 steps:
@@ -64,7 +64,7 @@ steps:
 volumes:
   - name: cache
     host:
-      path: /var/lib/cache
+      path: /var/drone/cache
 trigger:
   branch:
     - testing
@@ -72,7 +72,7 @@ trigger:
     - push
 ---
 kind: pipeline
-type: kubernetes
+type: docker
 name: staging-e2e-tests
 
 steps:
@@ -136,7 +136,7 @@ steps:
 volumes:
   - name: cache
     host:
-      path: /var/lib/cache
+      path: /var/drone/cache
 trigger:
   event:
     - cron
