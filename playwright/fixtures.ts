@@ -81,7 +81,7 @@ async function signInTestAccount(page: Page, testAccount: TestAccount) {
                 })
                 .fill(testAccount.password);
             await page
-                .getByRole('button', {name: 'Sign in'})
+                .getByRole('button', {name: 'Sign in', exact: true})
                 .click();
             await page.waitForURL(/github.com\/sessions\/two-factor\/app/);
             const otp = generateTOTP(testAccount.totpSecret, testAccount.totpPasswordLength || 6);
